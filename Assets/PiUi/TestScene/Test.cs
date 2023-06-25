@@ -21,17 +21,17 @@ public class Test : MonoBehaviour
     void Update()
     {
         //Bool function that returns true if on a menu
-        if (piUi.OverAMenu( ))
-            Debug.Log("You are over a menu");
-        else
-            Debug.Log("You are not over a menu");
+        //if (piUi.OverAMenu( ))
+        //    Debug.Log("You are over a menu");
+        //else
+        //    Debug.Log("You are not over a menu");
         //Just open the normal Menu if A is pressed
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.F))
         {
             piUi.ChangeMenuState("Normal Menu", new Vector2(Screen.width / 2f, Screen.height / 2f));
         }
         //Update the menu and add the Testfunction to the button action if s or Fire1 axis is pressed
-        if (Input.GetKeyDown(KeyCode.S) || Input.GetButtonDown("Fire1"))
+        if (Input.GetKeyDown(KeyCode.G) /*|| Input.GetButtonDown("Fire1")*/)
         {
             //Ensure menu isnt currently open on update just for a cleaner look
             if (!piUi.PiOpened("Normal Menu"))
@@ -53,56 +53,56 @@ public class Test : MonoBehaviour
             //Open or close the menu depending on it's current state at the center of the screne
             piUi.ChangeMenuState("Normal Menu", new Vector2(Screen.width / 2f, Screen.height / 2f));
         }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            //Ensure menu isnt currently open on regenerate so it doesnt spasm
-            if (!piUi.PiOpened("Normal Menu"))
-            {
+        //if (Input.GetKeyDown(KeyCode.H))
+        //{
+        //    //Ensure menu isnt currently open on regenerate so it doesnt spasm
+        //    if (!piUi.PiOpened("Normal Menu"))
+        //    {
 
-                //Make all angles equal 
-                normalMenu.equalSlices = true;
-                normalMenu.iconDistance = 0f;
-                //Changes the piDataLength and adds new piData
-                normalMenu.piData = new PiUI.PiData[10];
-                for(int j = 0; j < 10; j++)
-                {
-                    normalMenu.piData[j] = new PiUI.PiData( );
-                }
-                //Turns of the syncing of colors
-                normalMenu.syncColors = false;
-                //Changes open/Close animations
-                normalMenu.openTransition = PiUI.TransitionType.Fan;
-                normalMenu.closeTransition = PiUI.TransitionType.SlideRight;
-                int i = 0;
-                foreach (PiUI.PiData data in normalMenu.piData)
-                {
-                    //Turning off the interactability of a slice
-                    if(i % 2 ==0)
-                    {
-                        data.isInteractable = false;
-                    }
-                    //Set new highlight/non highlight colors
-                    data.nonHighlightedColor = new Color(1 - i/10f, 0, 0, 1);
-                    data.highlightedColor = new Color(0, 0, 1 - i/10f, 1);
-                    data.disabledColor = Color.grey;
-                    //Changes slice label
-                    data.sliceLabel = "Test" + i.ToString( );
-                    //Creates a new unity event and adds the testfunction to it
-                    data.onSlicePressed = new UnityEngine.Events.UnityEvent( );
-                    data.onSlicePressed.AddListener(TestFunction);
-                    i += 1;
-                    //Enables hoverFunctions
-                    data.hoverFunctions = true;
-                    //Creates a new unity event to adds on hovers function
-                    data.onHoverEnter = new UnityEngine.Events.UnityEvent( );
-                    data.onHoverEnter.AddListener(OnHoverEnter);
-                    data.onHoverExit = new UnityEngine.Events.UnityEvent( );
-                    data.onHoverExit.AddListener(OnHoverExit);
-                }
-                piUi.RegeneratePiMenu("Normal Menu");
-            }
-            piUi.ChangeMenuState("Normal Menu", new Vector2(Screen.width / 2f, Screen.height / 2f));
-        }
+        //        //Make all angles equal 
+        //        normalMenu.equalSlices = true;
+        //        normalMenu.iconDistance = 0f;
+        //        //Changes the piDataLength and adds new piData
+        //        normalMenu.piData = new PiUI.PiData[10];
+        //        for(int j = 0; j < 10; j++)
+        //        {
+        //            normalMenu.piData[j] = new PiUI.PiData( );
+        //        }
+        //        //Turns of the syncing of colors
+        //        normalMenu.syncColors = false;
+        //        //Changes open/Close animations
+        //        normalMenu.openTransition = PiUI.TransitionType.Fan;
+        //        normalMenu.closeTransition = PiUI.TransitionType.SlideRight;
+        //        int i = 0;
+        //        foreach (PiUI.PiData data in normalMenu.piData)
+        //        {
+        //            //Turning off the interactability of a slice
+        //            if(i % 2 ==0)
+        //            {
+        //                data.isInteractable = false;
+        //            }
+        //            //Set new highlight/non highlight colors
+        //            data.nonHighlightedColor = new Color(1 - i/10f, 0, 0, 1);
+        //            data.highlightedColor = new Color(0, 0, 1 - i/10f, 1);
+        //            data.disabledColor = Color.grey;
+        //            //Changes slice label
+        //            data.sliceLabel = "Test" + i.ToString( );
+        //            //Creates a new unity event and adds the testfunction to it
+        //            data.onSlicePressed = new UnityEngine.Events.UnityEvent( );
+        //            data.onSlicePressed.AddListener(TestFunction);
+        //            i += 1;
+        //            //Enables hoverFunctions
+        //            data.hoverFunctions = true;
+        //            //Creates a new unity event to adds on hovers function
+        //            data.onHoverEnter = new UnityEngine.Events.UnityEvent( );
+        //            data.onHoverEnter.AddListener(OnHoverEnter);
+        //            data.onHoverExit = new UnityEngine.Events.UnityEvent( );
+        //            data.onHoverExit.AddListener(OnHoverExit);
+        //        }
+        //        piUi.RegeneratePiMenu("Normal Menu");
+        //    }
+        //    piUi.ChangeMenuState("Normal Menu", new Vector2(Screen.width / 2f, Screen.height / 2f));
+        //}
 
         //Set joystick input on the normal menu which the piPieces check
         normalMenu.joystickInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
@@ -119,15 +119,15 @@ public class Test : MonoBehaviour
     {
         //Closes the menu
         piUi.ChangeMenuState("Normal Menu");
-        Debug.Log("You Clicked me!");
+        //Debug.Log("You Clicked me!");
     }
 
     public void OnHoverEnter()
     {
-        Debug.Log("Hey get off of me!");
+        //Debug.Log("Hey get off of me!");
     }
     public void OnHoverExit()
     {
-        Debug.Log("That's right and dont come back!");
+        //Debug.Log("That's right and dont come back!");
     }
 }

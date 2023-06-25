@@ -63,6 +63,14 @@ public class PiPiece : MonoBehaviour
 
     private void Start()
     {
+        if (!parent.openedMenu)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
         thisImg.color= normalColor;
 
     }
@@ -87,14 +95,16 @@ public class PiPiece : MonoBehaviour
             float angle = (Mathf.Atan2(temp.y, temp.x) * Mathf.Rad2Deg);
             angle = (angle + 360) % 360;
             scaledOR = outerRadius;
-            if (angle < maxAngle && angle > minAngle && temp.magnitude >= innerRadius && temp.magnitude <= scaledOR)
+
+            if (angle < maxAngle && angle > minAngle && temp.magnitude >= innerRadius && temp.magnitude <= scaledOR)//------------------------------------------------------
             {
                 index = (int)(angle / (maxAngle - minAngle));
                 if (Input.GetMouseButtonDown(0))
                 {
                     GameObject newObject = GameObject.Instantiate(td.TowerList[index].Prefab);
                     newObject.transform.position = parent.lastPosition;
-                    Debug.Log("sucess");
+                    parent.openedMenu = false;
+                    //Cursor.lockState = CursorLockMode.Locked;
                 }
                 isOver = true;
             }

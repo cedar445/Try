@@ -223,9 +223,11 @@ public class PiUI : MonoBehaviour
     private void Update()
     {
         overMenu = false;
+        
         //Open the menu with the selected opening transition, or if !openmenu close menu with selected closing transition
         if (openedMenu)
         {
+            Cursor.lockState = CursorLockMode.None;
             switch (openTransition)
             {
                 case TransitionType.Scale:
@@ -254,6 +256,7 @@ public class PiUI : MonoBehaviour
         }
         else if (!openedMenu)
         {
+            Cursor.lockState = CursorLockMode.Locked;
             interactable = false;
             switch (closeTransition)
             {
@@ -298,20 +301,21 @@ public class PiUI : MonoBehaviour
     /// <param name="screenPos">Place in screen position to open the menu</param>
     public void OpenMenu(Vector2 screenPos)
     {
+        Cursor.lockState = CursorLockMode.None;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         canBeSelected = false;
-        if (Physics.Raycast(ray, out hit, 10000, mask) && Input.GetMouseButtonDown(0))
+        if (Physics.Raycast(ray, out hit, 10000, mask) && Input.GetKeyDown(KeyCode.F))
         {
-
             lastPosition = hit.collider.gameObject.transform.position;
             canBeSelected = true;
+            Cursor.lockState = CursorLockMode.None;
         }
 
         menuPosition = screenPos;
         if (canBeSelected)
         {
-            openedMenu = true;//赋值--------------------------------------
+            openedMenu = true;//赋值---------------------------------------------------------------------------------
 
         }
         foreach (PiPiece pi in piList)
