@@ -1,9 +1,13 @@
 sceneSetups:
-- path: Assets/MainScene/MainScene.unity
+- path: Assets/scene1.unity
   isLoaded: 1
   isActive: 0
   isSubScene: 0
-- path: Assets/placeTower.unity
+- path: Assets/scene2.unity
   isLoaded: 1
   isActive: 1
+  isSubScene: 0
+- path: Assets/placeTower.unity
+  isLoaded: 1
+  isActive: 0
   isSubScene: 0
