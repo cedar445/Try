@@ -451,6 +451,8 @@
 "Assets/placeEmpty.cs"
 "Assets/Player/AssetStoreOriginals/_SNAPS_PrototypingAssets/About/Scripts/Readme.cs"
 "Assets/Player/Scripts/CameraShake.cs"
+"Assets/Player/Scripts/Damageable.cs"
+"Assets/Player/Scripts/Health.cs"
 "Assets/Player/Scripts/PlayerCharacterController.cs"
 "Assets/Player/Scripts/PlayerInputHandler.cs"
 "Assets/Player/Scripts/PlayerWeaponManager.cs"

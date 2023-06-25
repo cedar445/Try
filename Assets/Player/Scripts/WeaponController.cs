@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WeaponController : MonoBehaviour
 {
@@ -24,6 +25,11 @@ public class WeaponController : MonoBehaviour
     private float currentEnergy = 0;
     private float energyRecover = 0;
 
+    //private GameObject UIImage;
+    private int energyStage = 0;
+    private Image a;
+
+
     public int choosedWeaponShoot;
 
     private float lastShoot = Mathf.NegativeInfinity;
@@ -34,12 +40,20 @@ public class WeaponController : MonoBehaviour
     public GameObject owner { get; set; }
     public GameObject sourcePrefab { get; set; }
 
-
+    //public List<GameObject> childOfUIImage = new List<GameObject>();//储存物体的列表
+    //public List<Image> energyImage = new List<Image>();
+    
 
     private void Awake()
     {
         weaponSound = GetComponent<AudioSource>();
         weaponSound.volume = 0.1f;
+        a = GameObject.Find("energy").GetComponent<Image>();
+        
+        
+        //UIImage = GameObject.Find("UI1");
+        //FindChild(UIImage.gameObject);//找到节点下的所有子物体
+       
     }
     public void ShowWeapon(bool show)
     {
@@ -163,7 +177,6 @@ public class WeaponController : MonoBehaviour
                     if (projectilePrefab != null)
                     {
                         oneShoot = 1;
-                        //Vector3 shotDiraction = weaponMuzzle.forward;
                         float a1 = UnityEngine.Random.Range(-1f, 1f);
                         float a2 = UnityEngine.Random.Range(-1f, 1f);
                         float a3 = UnityEngine.Random.Range(-1f, 1f);
@@ -180,13 +193,6 @@ public class WeaponController : MonoBehaviour
                     {
                         oneShoot = 3f;
                         SGShoot();
-                        //Quaternion q = Quaternion.Euler(weaponMuzzle.rotation.eulerAngles + new Vector3(1f, 1f, 1f));
-                        //Vector3 shotDiraction = weaponMuzzle.forward;
-                        /*ProjectileBase newProjectile = Instantiate(projectilePrefab, weaponMuzzle.position, weaponMuzzle.rotation);
-                        ProjectileBase newProjectile1 = Instantiate(projectilePrefab, weaponMuzzle.position, q);
-                        newProjectile.Shoot(this);
-                        newProjectile1.Shoot(this);*/
-
                     }
                     break;
                 }
@@ -195,7 +201,6 @@ public class WeaponController : MonoBehaviour
                     if (projectilePrefab != null)
                     {
                         oneShoot = 0.5f;
-                        //Vector3 shotDiraction = weaponMuzzle.forward;
                         ProjectileBase newProjectile = Instantiate(projectilePrefab, weaponMuzzle.position, weaponMuzzle.rotation);
                         newProjectile.Shoot(this);
 
@@ -214,7 +219,7 @@ public class WeaponController : MonoBehaviour
             GunShoot();
             weaponSound.PlayOneShot(shootSound);
             currentEnergy += oneShoot;
-            //Debug.Log("currentEnergy= " + currentEnergy);
+            Debug.Log("currentEnergy= " + currentEnergy);
             //Debug.Log("shoot");
             return true;
         }
@@ -258,5 +263,55 @@ public class WeaponController : MonoBehaviour
             currentEnergy -= energySpeed;
         }
         
+        if(currentEnergy < 20 && currentEnergy >= 0 && energyStage != 5)
+        {
+            energyStage = 5;
+            a.sprite = Resources.Load<Sprite>("stage5");
+            a.color = Color.green;
+        }
+        if (currentEnergy < 40 && currentEnergy >= 20 && energyStage != 4)
+        {
+            energyStage = 4;
+            a.sprite = Resources.Load<Sprite>("stage4");
+            a.color = new Color(0.74f, 0.9f, 0.26f, 1);
+        }
+        if(currentEnergy < 60 && currentEnergy >= 40 && energyStage != 3)
+        {
+            energyStage = 3;
+            a.sprite = Resources.Load<Sprite>("stage3");
+            a.color = Color.yellow;
+        }
+        if(currentEnergy < 80 && currentEnergy >= 60 && energyStage != 2)
+        {
+            energyStage = 2;
+            a.sprite = Resources.Load<Sprite>("stage2");
+            a.color = new Color(0.94f, 0.7f, 0.18f, 1);
+        }
+        if (currentEnergy >= 80 && energyStage != 1)
+        {
+            energyStage = 1;
+            a.sprite = Resources.Load<Sprite>("stage1");
+            a.color = Color.red;
+        }
     }
+
+    /*void FindChild(GameObject child)
+    {
+        //利用for循环 获取物体下的全部子物体
+        for (int i = 0; i < child.transform.childCount; i++)
+        {
+            //如果子物体下还有子物体 就将子物体传入进行回调查找 直到物体没有子物体为止
+            if (child.transform.GetChild(i).childCount > 0)
+            {
+                FindChild(child.transform.GetChild(i).gameObject);
+            }
+            childOfUIImage.Add(child.transform.GetChild(i).gameObject);
+        }
+
+        for (int i = 0; i < childOfUIImage.Count; i++)
+        {
+            energyImage[i] = childOfUIImage[i].GetComponentInChildren<Image>();
+        }
+    }*/
+
 }

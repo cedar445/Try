@@ -97,9 +97,11 @@ MonoBehaviour:
   hittableLayers:
     serializedVersion: 2
     m_Bits: 55
+  damage: 8
   impactVFX: {fileID: 7655095426451682942, guid: b44155a491834754482508226b37b2d2, type: 3}
   impactVFXLifeTime: 2
   impactVFXSpawnOffset: 0.1
+  trajectoryCorrectionDistance: 5
 --- !u!1001 &3628389670046413165
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.ProBuilder;
+//using UnityEngine.ProBuilder;
 
 public class ProjectileStandard : MonoBehaviour
 {
@@ -13,6 +13,7 @@ public class ProjectileStandard : MonoBehaviour
     public Transform tip;
     public float radius = 0.01f;
     public LayerMask hittableLayers = -1; //Åö×²¼ì²âÍ¼²ã
+    public float damage = 10f;
 
     public GameObject impactVFX;
     public float impactVFXLifeTime = 5f;
@@ -112,8 +113,9 @@ public class ProjectileStandard : MonoBehaviour
                 closestHit.normal = -transform.forward;
             }
 
-            OnHit(closestHit.point,closestHit.normal);
+            OnHit(closestHit.point,closestHit.normal, closestHit.collider);
         }
+       
     }
 
     private bool IsHitValid(RaycastHit hit)
@@ -125,9 +127,16 @@ public class ProjectileStandard : MonoBehaviour
         return true;
     }
 
-    private void OnHit(Vector3 point,Vector3 normal)
+    private void OnHit(Vector3 point,Vector3 normal, Collider collider)
     {
-        if(impactVFX!=null)
+        Damageable damageable = collider.GetComponent<Damageable>();
+
+        if (damageable)
+        {
+            damageable.InflictDamage(damage);
+        }
+
+        if (impactVFX!=null)
         {
             GameObject impactVFXInstance = Instantiate(impactVFX, point + normal * impactVFXSpawnOffset,
                 Quaternion.LookRotation(normal));
@@ -138,7 +147,7 @@ public class ProjectileStandard : MonoBehaviour
             }
         }
 
-        //Debug.Log("Hit!!!!!!!!!!");
+        Debug.Log("Hit!!!!!!!!!!");
 
         Destroy(gameObject);
     }
