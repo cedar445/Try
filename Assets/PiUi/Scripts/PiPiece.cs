@@ -104,12 +104,16 @@
                 if (angle < maxAngle && angle > minAngle && temp.magnitude >= innerRadius && temp.magnitude <= scaledOR)//------------------------------------------------------
                 {
                     index = (int)(angle / (maxAngle - minAngle));
-                    if (Input.GetMouseButtonDown(0))
+                    if (Input.GetMouseButtonDown(0)&& GameObject.Find(parent.nameOfPlace).gameObject.GetComponent<placeEmpty>().isEmpty)
                     {
                         GameObject newObject = GameObject.Instantiate(td.TowerList[index].Prefab);
                         newObject.transform.position = parent.lastPosition;
                         parent.openedMenu = false;
-                        //Cursor.lockState = CursorLockMode.Locked;
+                        GameObject.Find(parent.nameOfPlace).gameObject.GetComponent<placeEmpty>().isEmpty = false;
+                    }
+                    else if (Input.GetMouseButtonDown(0) && index > td.TowerList.Count)
+                    {
+                        
                     }
                     isOver = true;
                 }

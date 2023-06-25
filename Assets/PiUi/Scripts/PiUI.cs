@@ -131,10 +131,17 @@
         private float[] angleList;
         [HideInInspector]
         public bool overMenu;
+
+
+
+
         public bool canBeSelected;
         public Vector3 lastPosition;
         [SerializeField]
         private LayerMask mask;
+        [SerializeField]
+        public string nameOfPlace;
+
 
         private void Awake()
         {
@@ -315,6 +322,7 @@
                 lastPosition = hit.collider.gameObject.transform.position;
                 canBeSelected = true;
                 Cursor.lockState = CursorLockMode.None;
+                nameOfPlace = hit.collider.gameObject.name;
             }
 
             menuPosition = screenPos;
