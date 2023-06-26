@@ -124,6 +124,10 @@
 -define:CROSS_PLATFORM_INPUT
 -define:CSHARP_7_OR_LATER
 -define:CSHARP_7_3_OR_NEWER
+-r:"Assets/plugins/I18N.CJK.dll"
+-r:"Assets/plugins/I18N.dll"
+-r:"Assets/plugins/I18N.West.dll"
+-r:"Assets/plugins/MySql.Data.dll"
 -r:"D:/2022.3.0f1c1/Editor/Data/Managed/UnityEditor.Graphs.dll"
 -r:"D:/2022.3.0f1c1/Editor/Data/Managed/UnityEngine/UnityEditor.CoreModule.dll"
 -r:"D:/2022.3.0f1c1/Editor/Data/Managed/UnityEngine/UnityEditor.DeviceSimulatorModule.dll"
